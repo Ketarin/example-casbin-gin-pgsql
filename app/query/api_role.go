@@ -48,7 +48,7 @@ func (a *ApiRole) GetRbacUserDefinitions(user string) ([]string, error) {
               CONCAT_WS(', ', 'g', u.name, arl.name)
             FROM api_role_user aru
               INNER JOIN api_role arl ON arl.api_role_id = aru.api_role_id
-              INNER JOIN uuser u ON u.user_id = aru.user_id
+              INNER JOIN users u ON u.user_id = aru.user_id
             WHERE u.name = $1`
 
 	rows, err := a.Query(sql, user)

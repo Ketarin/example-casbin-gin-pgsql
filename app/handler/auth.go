@@ -14,6 +14,9 @@ const rbacConf = "/etc/myapp/casbin/rbac_model.conf"
 //Auth is a simple handle where you can see everythin
 func Auth(conn infra.ConnectionInterface) gin.HandlerFunc {
 
+	// to get DB data in BD
+	queryRole := query.NewApiRole(conn)
+
 	return func(c *gin.Context) {
 
 		user := c.GetHeader("AUTH_IDENTITY")
@@ -22,9 +25,6 @@ func Auth(conn infra.ConnectionInterface) gin.HandlerFunc {
 			c.AbortWithStatusJSON(http.StatusForbidden, "user is needed")
 			return
 		}
-
-		// to get DB data in BD
-		queryRole := query.NewApiRole(conn)
 
 		// prepare your casbin adapter
 		adapter := mycasbin.NewAdapter(queryRole, user)

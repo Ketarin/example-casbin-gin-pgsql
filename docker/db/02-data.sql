@@ -1,5 +1,5 @@
 -- users 
-INSERT INTO uuser (name) VALUES 
+INSERT INTO users (name) VALUES 
   ('Sadmin'), 
   ('Liliread'),
   ('Moderator')
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS "api_role_user" (
     api_role_id integer NOT NULL,
     user_id integer NOT NULL,
     FOREIGN KEY (api_role_id) REFERENCES api_role(api_role_id),
-    FOREIGN KEY (user_id) REFERENCES uuser(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     CONSTRAINT api_role_user_api_role_id_user_id_key PRIMARY KEY (api_role_id, user_id)
 );
 
@@ -64,7 +64,7 @@ INSERT INTO api_role_role (parent_api_role_id, child_api_role_id) VALUES
 
 -- link between role & users
 INSERT INTO api_role_user (api_role_id, user_id) VALUES
-  ((SELECT api_role_id FROM api_role WHERE name = 'admin'),(SELECT user_id FROM uuser WHERE name = 'Sadmin')),
-  ((SELECT api_role_id FROM api_role WHERE name = 'guest'),(SELECT user_id FROM uuser WHERE name = 'Liliread')),
-  ((SELECT api_role_id FROM api_role WHERE name = 'deleter'),(SELECT user_id FROM uuser WHERE name = 'Moderator'))
+  ((SELECT api_role_id FROM api_role WHERE name = 'admin'),(SELECT user_id FROM users WHERE name = 'Sadmin')),
+  ((SELECT api_role_id FROM api_role WHERE name = 'guest'),(SELECT user_id FROM users WHERE name = 'Liliread')),
+  ((SELECT api_role_id FROM api_role WHERE name = 'deleter'),(SELECT user_id FROM users WHERE name = 'Moderator'))
 ;

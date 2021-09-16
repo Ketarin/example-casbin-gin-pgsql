@@ -1,7 +1,7 @@
 /**
  * USER 
  */
-CREATE TABLE uuser
+CREATE TABLE users
 (
     user_id serial PRIMARY KEY,
     name text NOT NULL,
@@ -46,6 +46,6 @@ CREATE TABLE IF NOT EXISTS "api_role_user" (
     api_role_id integer NOT NULL,
     user_id integer NOT NULL,
     FOREIGN KEY (api_role_id) REFERENCES api_role(api_role_id),
-    FOREIGN KEY (user_id) REFERENCES uuser(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     CONSTRAINT api_role_user_api_role_id_user_id_key PRIMARY KEY (api_role_id, user_id)
 );

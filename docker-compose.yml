@@ -1,27 +1,29 @@
 version: "3"
 services:
+
   myapp:
-    build: ./docker/go
+    image: golang:1.16
     depends_on:
       - mydb
     volumes:
       - ./app/mycasbin/config:/etc/myapp/casbin
       - ./.:/go/src/github.com/Ketarin/myapp
+    working_dir: /go/src/github.com/Ketarin/myapp
     ports:
       - "8081:8080"
+    command: ["/bin/bash", "-c", "go run ./app/main.go"]
     environment:
       PG_HOST: mydb
       PG_DB: ${DB_NAME}
       PG_USER: ${DB_USER}
       PG_PASSWORD: ${DB_PASSWORD}
+
   mydb:
-      image: postgres:11.2
-      restart: always
-      environment:
-          POSTGRES_DB: ${DB_NAME}
-          POSTGRES_USER: ${DB_USER}
-          POSTGRES_PASSWORD: ${DB_PASSWORD}
-      ports:
-          - 15432:5432
-      volumes:
-          - ./docker/db:/docker-entrypoint-initdb.d
+    image: postgres:11.2
+      # restart: always
+    environment:
+        POSTGRES_DB: ${DB_NAME}
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+        - ./docker/db:/docker-entrypoint-initdb.d

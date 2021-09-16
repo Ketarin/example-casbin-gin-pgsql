@@ -1,11 +1,30 @@
-# pg-casbin
-A simple implementation with
+# Example of use of Casbin with Gin and Pgsql
+A simple implementation of [casbin/casbin](https://github.com/casbin/casbin) with a database 
 
+## Database
+[The database schema](docker/db/01-schema.sql) which contains the users, routes and roles tables.
 
-## Start the example
+[The database data](docker/db/01-schema.sql) : the fixtures for this example
 
-```
-make complete
+The roles have access to the routes and we give these roles to a user. 
+
+The roles can have multiple roles to inherit their rights.
+
+The users can have multiple roles.
+
+## Process
+Casbin library execute the method **LoadPolicy** in the [Pgsql Casbin Adapter](app/mycasbin/adapter.go)
+
+## Try yourself
+
+### Requirements
+- docker
+- docker-compose
+
+### Start the API and the database
+
+```sh
+docker-compose up
 ```
 
 ## Try some calls

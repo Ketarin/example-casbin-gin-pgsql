@@ -24,7 +24,6 @@ type MyAdapter struct {
 
 //LoadPolicy loads from Manager ( DB or Redis ) all rbac rights
 func (a *MyAdapter) LoadPolicy(model cmodel.Model) error {
-	//error = not authorized, nothing is really logged here
 
 	//Roles bonds (parent/child)
 	globalDefinitions, err := a.apiRole.GetRbacGlobalDefinitions()
@@ -32,7 +31,7 @@ func (a *MyAdapter) LoadPolicy(model cmodel.Model) error {
 		return err
 	}
 
-	//user bonds ( role attributions )
+	//users bonds ( role attributions )
 	userDefinitions, err := a.apiRole.GetRbacUserDefinitions(a.user)
 	if err != nil {
 		return err
